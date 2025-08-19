@@ -37,8 +37,7 @@ function App() {
 
   const handleEdit = (user) => setUserInfo(user);
 
-  const handleDelete = (id) =>
-    setUsers((prev) => prev.filter((u) => u.id !== id));
+  const handleDelete = (id) => setUsers((prev) => prev.filter((u) => u.id !== id));
 
   return (
     <div className="main">
