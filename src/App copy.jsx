@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
+import { v4 as uuid } from "uuid";
 
 function App() {
   const [buttonChange, setButtonChange] = useState("add");
@@ -18,82 +19,41 @@ function App() {
     });
   };
 
-  const fetchdata = async () => {
-    try {
-      const userlist = await fetch("http://localhost:3000/user/list");
-      const response = await userlist.json();
-      setUsers(response);
-
-      return response;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchdata();
-  }, []);
-
-  const addData = async () => {
-    console.log(userInfo);
-    const response = await fetch("http://localhost:3000/user/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: userInfo.name,
-        age: userInfo.age,
-      }),
+  const addData = () => {
+    setUsers((currentValue) => [...currentValue, userInfo]);
+    setUserInfo({
+      id: crypto.randomUUID(),
+      name: "",
+      age: "",
     });
-    fetchdata();
-  };
-
-  const deleteData = async (id) => {
-    const del = await fetch(`http://localhost:3000/user/delete/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    fetchdata();
-    console.log(del);
-  };
-
-  const updateData = async () => {
     console.log(userInfo);
-    await fetch(`http://localhost:3000/user/update/${userInfo.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        name: userInfo.name,
-        age: userInfo.age,
-      }),
+  };
+
+  const deleteData = (id) => {
+    setUsers((alluser) => {
+      return alluser.filter((user) => user.id !== id);
+    });
+  };
+  const updateData = () => {
+    setUsers((alluser) => {
+      return alluser.map((user) => {
+        if (user.id == userInfo.id) {
+          return userInfo;
+        }
+        return user;
+      });
     });
     cancelData();
-    fetchdata();
   };
 
-  const handleEditData = async (currentUser) => {
-    console.log("handleEditData", currentUser);
-    const getData = await fetch(
-      `http://localhost:3000/user/${currentUser.id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    );
-    const data = await getData.json();
-    setUserInfo(data[0]);
+  const handleEditData = (alluser) => {
+    setUserInfo(alluser);
     setButtonChange("edit");
   };
 
   const cancelData = () => {
     setUserInfo({
+      id: crypto.randomUUID(),
       name: "",
       age: "",
     });
@@ -122,15 +82,18 @@ function App() {
         />
         {buttonChange == "add" ? (
           <button id="add" onClick={addData}>
-            Add
+            {" "}
+            Add{" "}
           </button>
         ) : (
           <>
             <button id="update" onClick={updateData}>
-              Update
+              {" "}
+              Update{" "}
             </button>
             <button id="cancel" onClick={cancelData}>
-              Cancel
+              {" "}
+              Cancel{" "}
             </button>
           </>
         )}

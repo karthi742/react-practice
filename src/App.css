@@ -7,32 +7,34 @@
 
 .main {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
   background: #f4f6f9;
+  padding: 20px;
 }
 
 h2 {
   margin-bottom: 15px;
   color: #333;
+  text-align: center;
 }
 
 .form {
   display: flex;
-  flex-direction: column;
   gap: 10px;
   background: white;
-  padding: 20px 30px;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  width: 300px;
-  margin-bottom: 20px;
+  width: 100%; /* Full screen width */
+  max-width: 1200px; /* Optional max width */
+  flex-wrap: wrap; /* Wrap to next line if needed */
 }
 
 .form input {
-  padding: 10px;
+  flex: 1; /* Each input takes equal space */
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
@@ -44,39 +46,34 @@ h2 {
   outline: none;
 }
 
-#add {
-  background: #007bff;
-  color: white;
-  padding: 10px;
+.form button {
+  padding: 12px 20px;
   border: none;
   border-radius: 8px;
   font-size: 15px;
   cursor: pointer;
   transition: background 0.3s;
+  color: white;
+}
+
+#add {
+  background: #007bff;
 }
 #update {
   background: #63600b;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background 0.3s;
 }
 #cancel {
   background: #eb1d0a;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background 0.3s;
 }
 
 #add:hover {
   background: #0056b3;
+}
+#update:hover {
+  background: #504c02;
+}
+#cancel:hover {
+  background: #c70e00;
 }
 
 /* Table styling */
@@ -85,7 +82,10 @@ h2 {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  width: 400px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto 0 auto;
+  overflow-x: auto;
 }
 
 table {
@@ -119,9 +119,8 @@ table td button {
   transition: all 0.3s ease;
 }
 
-/* Edit button */
 table td button:first-child {
-  background-color: #4caf50; /* green */
+  background-color: #4caf50;
   color: white;
 }
 
@@ -129,9 +128,8 @@ table td button:first-child:hover {
   background-color: #45a049;
 }
 
-/* Delete button */
 table td button:last-child {
-  background-color: #f44336; /* red */
+  background-color: #f44336;
   color: white;
 }
 
