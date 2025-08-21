@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 
+
 function App() {
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = 'https://express-js-j2v6.onrender.com';
 
   const [buttonChange, setButtonChange] = useState("add");
   const [users, setUsers] = useState([]);
