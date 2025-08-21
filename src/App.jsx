@@ -49,6 +49,7 @@ function App() {
         age: userInfo.age,
       }),
     });
+    cancelData();
     fetchdata();
   };
 
