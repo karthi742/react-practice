@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const [buttonChange, setButtonChange] = useState("add");
   const [users, setUsers] = useState([]);
   const [userInfo, setUserInfo] = useState({
@@ -20,7 +22,7 @@ function App() {
 
   const fetchdata = async () => {
     try {
-      const userlist = await fetch("http://localhost:3000/user/list");
+      const userlist = await fetch(`${API_URL}/user/list`);
       const response = await userlist.json();
       setUsers(response);
 
@@ -36,7 +38,7 @@ function App() {
 
   const addData = async () => {
     console.log(userInfo);
-    const response = await fetch("http://localhost:3000/user/add", {
+    const response = await fetch(`${API_URL}/user/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +52,7 @@ function App() {
   };
 
   const deleteData = async (id) => {
-    const del = await fetch(`http://localhost:3000/user/delete/${id}`, {
+    const del = await fetch(`${API_URL}/user/delete/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +64,7 @@ function App() {
 
   const updateData = async () => {
     console.log(userInfo);
-    await fetch(`http://localhost:3000/user/update/${userInfo.id}`, {
+    await fetch(`${API_URL}/user/update/${userInfo.id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -79,7 +81,7 @@ function App() {
   const handleEditData = async (currentUser) => {
     console.log("handleEditData", currentUser);
     const getData = await fetch(
-      `http://localhost:3000/user/${currentUser.id}`,
+      `${API_URL}/user/${currentUser.id}`,
       {
         method: "GET",
         headers: {
